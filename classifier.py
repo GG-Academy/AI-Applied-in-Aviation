@@ -37,19 +37,34 @@ accuracy = accuracy_score(y_test, predictions)
 print("Model Accuracy:", accuracy)
 
 # Predict a new flight
+# TODO: 1. Write your flight code below
+FLIGHT_CODE = 'RO627' # Bucuresti-Oradea
+# TODO: 2. Update lines 43-45 accordingly
 new_flight = pd.DataFrame({
-    'Hour': [18],
+    'Hour': [16],
     'Weather': [1],
     'Congestion': [1]
 })
 
 result = model.predict(new_flight)
 
+# TODO: 3. Run the file and save the output in a .txt file
 if result[0] == 1:
-    print("Prediction: FLIGHT DELAYED")
-else:
-    print("Prediction: FLIGHT ON TIME")
+    prediction = f"Prediction: FLIGHT {FLIGHT_CODE} DELAYED"
 
+else:
+    prediction = f"Prediction: FLIGHT {FLIGHT_CODE} ON TIME"
+
+print(prediction)
+
+with open("prediction.txt", "w") as file:
+    file.write(f"Flight: {FLIGHT_CODE}\n")
+    file.write(f"Departure hour: {new_flight['Hour'].iloc[0]}\n")
+    file.write(f"Weather: {new_flight['Weather'].iloc[0]}\n")
+    file.write(f"Congestion: {new_flight['Congestion'].iloc[0]}\n")
+    file.write(prediction + "\n")
+
+print("Results saved to prediction.txt")
 
 # import matplotlib.pyplot as plt
 # from sklearn.tree import plot_tree
